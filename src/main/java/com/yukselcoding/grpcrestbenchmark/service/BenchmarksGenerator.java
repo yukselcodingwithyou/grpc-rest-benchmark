@@ -11,9 +11,9 @@ import java.util.List;
 
 @Service
 public class BenchmarksGenerator {
-    public Benchmarks generate() {
+    public Benchmarks generate(Long runs) {
         final List<Benchmark> benchmarks = new ArrayList<>();
-        for(int i = 0; i < 50000; i++) {
+        for(int i = 0; i < runs; i++) {
             benchmarks.add(Benchmark.newBuilder()
                     .setId(i)
                     .setTitle("Title " + i)

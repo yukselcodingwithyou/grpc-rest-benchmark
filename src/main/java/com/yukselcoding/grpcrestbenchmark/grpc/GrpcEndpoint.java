@@ -1,22 +1,24 @@
 package com.yukselcoding.grpcrestbenchmark.grpc;
 
 
+import com.yukselcoding.grpcrestbenchmark.service.BenchmarksGenerator;
 import com.yukselcoding.proto.BenchmarkServiceGrpc;
 import com.yukselcoding.proto.Benchmarks;
-import com.yukselcoding.proto.Empty;
+import com.yukselcoding.proto.GetBenchmarksRequest;
 import io.grpc.stub.StreamObserver;
-import net.devh.boot.grpc.server.service.GrpcService;
+
+import org.lognet.springboot.grpc.GRpcService;
 import org.springframework.beans.factory.annotation.Autowired;
 
-@GrpcService
+@GRpcService
 public class GrpcEndpoint extends BenchmarkServiceGrpc.BenchmarkServiceImplBase {
 
     @Autowired
-    private Benchmarks benchmarks;
+    private BenchmarksGenerator benchmarksGenerator;
 
     @Override
-    public void get(Empty request, StreamObserver<Benchmarks> responseObserver) {
-        responseObserver.onNext(benchmarks);
+    public void get(GetBenchmarksRequest request, StreamObserver<Benchmarks> responseObserver) {
+        responseObserver.onNext(benchmarksGenerator.generate(request.getCount()));
         responseObserver.onCompleted();
     }
 }

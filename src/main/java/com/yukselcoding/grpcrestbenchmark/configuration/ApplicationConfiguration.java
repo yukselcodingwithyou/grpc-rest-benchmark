@@ -21,7 +21,7 @@ public class ApplicationConfiguration {
 
     @Bean
     public Benchmarks benchmarks() {
-        return generator.generate();
+        return generator.generate(50000L);
     }
 
 
